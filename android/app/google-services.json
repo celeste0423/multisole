@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "981965077016",
+    "project_id": "multisole-6592b",
+    "storage_bucket": "multisole-6592b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:981965077016:android:123309b59464af7e42616d",
+        "android_client_info": {
+          "package_name": "com.multisole.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2e8i3YcMYxdW02RESPAyRGDLxOcqZkv4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
