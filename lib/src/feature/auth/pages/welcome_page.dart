@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:multisol/src/feature/auth/widgets/google_login_button.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -15,69 +14,30 @@ import '../controllers/welcome_page_controller.dart';
 class WelcomePage extends GetView<WelcomePageController> {
   const WelcomePage({super.key});
 
-  Widget _backgroundLogo() {
-    return SvgPicture.asset(
-      'assets/images/background_logo.svg',
-      width: Get.width,
-    );
-  }
-
   Widget _title() {
     return Padding(
       padding: const EdgeInsets.only(left: 30, bottom: 20),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SvgPicture.asset(
-            'assets/images/logo.svg',
-            width: 120,
-            height: 120,
-          ),
-          const SizedBox(height: 10),
-          SvgPicture.asset(
-            'assets/images/caption.svg',
-            width: 175,
-            height: 45,
-          ),
-          const SizedBox(height: 10),
-          const Text(
-            '공부로 대결하는\n한판 진검승부',
-            textAlign: TextAlign.left,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 15,
-            ),
-          ),
-        ],
+      child: Image.asset(
+        'assets/images/logo.png',
+        width: Get.width,
       ),
     );
   }
 
   Widget _bottomTab() {
-    return Container(
-      width: double.infinity,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const SizedBox(height: 40),
-            const GoogleLoginButton(),
-            const SizedBox(height: 10),
-            _customLoginButton(),
-            const SizedBox(height: 40),
-            _infoText(),
-            const SizedBox(height: 10)
-          ],
-        ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 30),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const SizedBox(height: 40),
+          const GoogleLoginButton(),
+          const SizedBox(height: 10),
+          _customLoginButton(),
+          const SizedBox(height: 40),
+          _infoText(),
+          const SizedBox(height: 10)
+        ],
       ),
     );
   }
@@ -225,24 +185,15 @@ class WelcomePage extends GetView<WelcomePageController> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
     Get.put(WelcomePageController());
     return Scaffold(
-      backgroundColor: CustomColors.mainOrange,
+      backgroundColor: CustomColors.mainBlack,
       resizeToAvoidBottomInset: false,
-      body: Stack(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            children: [
-              _backgroundLogo(),
-            ],
+          Expanded(
+            child: _title(),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: _title(),
-              ),
-              _bottomTab()
-            ],
-          ),
+          _bottomTab()
         ],
       ),
     );

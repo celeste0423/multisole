@@ -15,7 +15,14 @@ class SignupPageController extends GetxController {
 
   Rx<bool> isSignupLoading = false.obs;
 
-  TextEditingController nicknameController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController contactController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController heightController = TextEditingController();
+  TextEditingController weightController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  Rx<int> bodyController = 0.obs;
+  TextEditingController additionController = TextEditingController();
 
   Rx<bool> isTermAgreed = false.obs;
 
@@ -23,11 +30,16 @@ class SignupPageController extends GetxController {
   void onInit() async {
     super.onInit();
     keyboardVisibilityController = KeyboardVisibilityController();
+    emailController.text = email.value;
+  }
+
+  void bodyShapeButton(int type) {
+    bodyController(type);
   }
 
   Future<void> signUpButton() async {
     isSignupLoading(true);
-    if (nicknameController.text == '') {
+    if (nameController.text == '') {
       isSignupLoading(false);
       openAlertDialog(title: '닉네임을 입력해주세요');
     } else if (!isTermAgreed.value) {
@@ -36,7 +48,7 @@ class SignupPageController extends GetxController {
     } else {
       UserModel userData = UserModel(
         uid: uid.value,
-        nickname: nicknameController.text,
+        name: nameController.text,
         email: email.value,
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),

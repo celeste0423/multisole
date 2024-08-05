@@ -12,7 +12,36 @@
           "package_name": "com.multisole.app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "981965077016-313hqu34t3dcqjqpopvk2h6qrgss0ssk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.multisole.app",
+            "certificate_hash": "b57bed7b90ce962579bc68967176139ef3a313bd"
+          }
+        },
+        {
+          "client_id": "981965077016-53s0mdcnuh63lq3b5blq1eoctnbs5t5s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.multisole.app",
+            "certificate_hash": "4aa30b2b841081528bbbad8abba0726e3dcb9c33"
+          }
+        },
+        {
+          "client_id": "981965077016-dr6ua143m8ascetiaauphcq19cma1a89.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.multisole.app",
+            "certificate_hash": "e5f6e83563a2bec4630aa27f3d55cb86aa749558"
+          }
+        },
+        {
+          "client_id": "981965077016-c6kivd2csf6iuhv0fr5qrvc2b3gbtl8p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyB2e8i3YcMYxdW02RESPAyRGDLxOcqZkv4"
@@ -20,7 +49,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "981965077016-c6kivd2csf6iuhv0fr5qrvc2b3gbtl8p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "981965077016-84714m6lui55af1jb9hhijicdqlv2u1m.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.multisol"
+              }
+            }
+          ]
         }
       }
     }

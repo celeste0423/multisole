@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:multisol/src/binding/init_binding.dart';
 import 'package:multisol/src/root.dart';
 import 'package:multisol/src/theme/base_theme.dart';
 
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       defaultTransition: Transition.fadeIn,
-      // initialBinding: InitBinding(),
+      initialBinding: InitBinding(),
       title: 'MultiSole',
       theme: baseTheme(context),
       home: const Root(),

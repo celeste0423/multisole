@@ -36,37 +36,49 @@ class TextFieldBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(left: 30),
-      decoration: BoxDecoration(
-        color: backgroundColor ?? Colors.white,
-        borderRadius: const BorderRadius.all(
-          Radius.circular(20),
-        ),
-      ),
-      height: height ?? 55,
-      child: TextField(
-        maxLength: maxLength ?? 30,
-        keyboardType: textInputType,
-        controller: textEditingController,
-        cursorColor: Colors.black.withOpacity(0.5),
-        style: TextStyle(
-          fontSize: fontSize ?? 16,
-          color: CustomColors.blackText,
-        ),
-        decoration: InputDecoration(
-          hintText: hintText ?? '',
-          hintStyle: TextStyle(
-            fontSize: fontSize ?? 16,
-            color: CustomColors.lightGreyText,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          hintText ?? '',
+          style: TextStyle(
+            fontSize: 10,
+            color: CustomColors.whiteText,
           ),
-          counterText: '',
-          border: InputBorder.none,
         ),
-        onSubmitted: onSubmitted,
-        textInputAction: textInputAction,
-        autofocus: autoFocus ?? false,
-      ),
+        Container(
+          padding: const EdgeInsets.only(left: 15),
+          decoration: BoxDecoration(
+            color: backgroundColor ?? Colors.white,
+            borderRadius: const BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
+          height: height ?? 50,
+          child: TextField(
+            maxLength: maxLength ?? 30,
+            keyboardType: textInputType,
+            controller: textEditingController,
+            cursorColor: Colors.black.withOpacity(0.5),
+            style: TextStyle(
+              fontSize: fontSize ?? 14,
+              color: CustomColors.blackText,
+            ),
+            decoration: InputDecoration(
+              // hintText: hintText ?? '',
+              // hintStyle: TextStyle(
+              //   fontSize: fontSize ?? 14,
+              //   color: CustomColors.lightGreyText,
+              // ),
+              counterText: '',
+              border: InputBorder.none,
+            ),
+            onSubmitted: onSubmitted,
+            textInputAction: textInputAction,
+            autofocus: autoFocus ?? false,
+          ),
+        ),
+      ],
     );
   }
 }

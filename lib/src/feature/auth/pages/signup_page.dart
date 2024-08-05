@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,7 +10,6 @@ import '../../../constants/service_urls.dart';
 import '../../../helpers/open_alert_dialog.dart';
 import '../../../utils/custom_color.dart';
 import '../../../widgets/full_size_loading_indicator.dart';
-import '../../../widgets/image_icon_button.dart';
 import '../../../widgets/main_button.dart';
 import '../../../widgets/text_field_box.dart';
 import '../controllers/signup_page_controller.dart';
@@ -24,100 +24,200 @@ class SignupPage extends GetView<SignupPageController> {
     required this.email,
   }) : super(key: key);
 
-  PreferredSizeWidget _appBar() {
-    return AppBar(
-      backgroundColor: Colors.transparent,
-      leadingWidth: controller.isProfileEditing == null ? 140 : 75,
-      leading: ImageIconButton(
-        assetPath: 'assets/icons/back.svg',
-        iconColor: Colors.white,
-        onTap: Get.back,
-      ),
-    );
-  }
-
-  Widget _announcementText() {
+  Widget _logoBox() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            controller.isProfileEditing == null ? '당신에 대해 알려주세요!' : '프로필 수정',
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 10),
-          const Text(
-            '해당 정보로 다양한 랭킹 배틀에 참여할 수 있습니다.',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 12,
-              fontWeight: FontWeight.w200,
-            ),
-          ),
-        ],
+      padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 50),
+      child: Image.asset(
+        'assets/images/logo.png',
+        width: Get.width,
       ),
     );
   }
 
   Widget _inputTab() {
     return Expanded(
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 25,
-        ),
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(30),
-            topLeft: Radius.circular(30),
-          ),
-        ),
-        child: SingleChildScrollView(
-          child: SizedBox(
-            height: Get.height - 240 < 520 ? 520 : Get.height - 240,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _firstRow(),
+            TextFieldBox(
+              textEditingController: controller.emailController,
+              backgroundColor: CustomColors.lightGreyBackground,
+              hintText: 'email 주소',
+              textInputAction: TextInputAction.next,
+              onSubmitted: (_) => FocusScope.of(Get.context!).unfocus(),
+              autoFocus: controller.isProfileEditing == null ? true : false,
+            ),
+            _thirdRow(),
+            _bodySelector(),
+            TextFieldBox(
+              textEditingController: controller.additionController,
+              backgroundColor: CustomColors.lightGreyBackground,
+              hintText: '추가 요청사항',
+              textInputAction: TextInputAction.next,
+              onSubmitted: (_) => FocusScope.of(Get.context!).unfocus(),
+              autoFocus: controller.isProfileEditing == null ? true : false,
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextFieldBox(
-                  textEditingController: controller.nicknameController,
-                  backgroundColor: CustomColors.lightGreyBackground,
-                  hintText: '닉네임(2~8자)',
-                  maxLength: 8,
-                  textInputAction: TextInputAction.next,
-                  onSubmitted: (_) => FocusScope.of(Get.context!).unfocus(),
-                  autoFocus: controller.isProfileEditing == null ? true : false,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    controller.isProfileEditing == null
-                        ? _termsAgreement()
-                        : const SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 20),
-                      child: MainButton(
-                        buttonText: '승부 시작 !',
-                        onTap: () {
-                          controller.signUpButton();
-                        },
-                        textStyle: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                      ),
+                controller.isProfileEditing == null
+                    ? _termsAgreement()
+                    : const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: MainButton(
+                    buttonText: '회원 가입 >',
+                    onTap: () {
+                      controller.signUpButton();
+                    },
+                    textStyle: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
                     ),
-                  ],
+                  ),
                 ),
               ],
             ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _firstRow() {
+    return Row(
+      children: [
+        Expanded(
+          flex: 2,
+          child: TextFieldBox(
+            textEditingController: controller.nameController,
+            backgroundColor: CustomColors.lightGreyBackground,
+            hintText: '이름',
+            maxLength: 8,
+            textInputAction: TextInputAction.next,
+            onSubmitted: (_) => FocusScope.of(Get.context!).unfocus(),
+            autoFocus: controller.isProfileEditing == null ? true : false,
           ),
+        ),
+        SizedBox(width: 15),
+        Expanded(
+          flex: 3,
+          child: TextFieldBox(
+            textEditingController: controller.contactController,
+            backgroundColor: CustomColors.lightGreyBackground,
+            hintText: '연락처',
+            maxLength: 13,
+            textInputAction: TextInputAction.next,
+            onSubmitted: (_) => FocusScope.of(Get.context!).unfocus(),
+            autoFocus: controller.isProfileEditing == null ? true : false,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _thirdRow() {
+    return Row(
+      children: [
+        Expanded(
+          flex: 1,
+          child: TextFieldBox(
+            textEditingController: controller.nameController,
+            backgroundColor: CustomColors.lightGreyBackground,
+            hintText: '신장(cm)',
+            maxLength: 3,
+            textInputAction: TextInputAction.next,
+            onSubmitted: (_) => FocusScope.of(Get.context!).unfocus(),
+            autoFocus: controller.isProfileEditing == null ? true : false,
+          ),
+        ),
+        SizedBox(width: 15),
+        Expanded(
+          flex: 1,
+          child: TextFieldBox(
+            textEditingController: controller.contactController,
+            backgroundColor: CustomColors.lightGreyBackground,
+            hintText: '몸무게(kg)',
+            maxLength: 3,
+            textInputAction: TextInputAction.next,
+            onSubmitted: (_) => FocusScope.of(Get.context!).unfocus(),
+            autoFocus: controller.isProfileEditing == null ? true : false,
+          ),
+        ),
+        SizedBox(width: 15),
+        Expanded(
+          flex: 2,
+          child: TextFieldBox(
+            textEditingController: controller.contactController,
+            backgroundColor: CustomColors.lightGreyBackground,
+            hintText: '특이사항',
+            maxLength: 13,
+            textInputAction: TextInputAction.next,
+            onSubmitted: (_) => FocusScope.of(Get.context!).unfocus(),
+            autoFocus: controller.isProfileEditing == null ? true : false,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _bodySelector() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          '체형',
+          style: TextStyle(
+            color: CustomColors.whiteText,
+            fontSize: 10,
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            _bodyShapeButton('assets/images/triangle.png', 1),
+            _bodyShapeButton('assets/images/square.png', 2),
+            _bodyShapeButton('assets/images/circle.png', 3),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _bodyShapeButton(String imagePath, int type) {
+    return CupertinoButton(
+      padding: EdgeInsets.zero,
+      onPressed: () {
+        controller.bodyShapeButton(type);
+      },
+      child: Expanded(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(
+              imagePath,
+              height: 75,
+            ),
+            SizedBox(height: 15),
+            Obx(
+              () => Container(
+                width: 7,
+                height: 7,
+                decoration: BoxDecoration(
+                  color: type == controller.bodyController.value
+                      ? CustomColors.mainOrange
+                      : CustomColors.greyBackground,
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -205,13 +305,12 @@ class SignupPage extends GetView<SignupPageController> {
         KeyboardDismissOnTap(
           child: Scaffold(
             resizeToAvoidBottomInset: true,
-            backgroundColor: CustomColors.mainOrange,
-            appBar: _appBar(),
+            backgroundColor: CustomColors.mainBlack,
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: MediaQuery.of(Get.context!).padding.top),
-                _announcementText(),
+                _logoBox(),
                 const SizedBox(height: 30),
                 _inputTab(),
               ],
