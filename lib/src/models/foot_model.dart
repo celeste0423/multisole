@@ -1,4 +1,7 @@
-class UserModel {
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+class FootModel {
+  final String? footId;
   final String? uid;
   final String? name;
   final String? contact;
@@ -8,11 +11,15 @@ class UserModel {
   final String? description;
   final int? body;
   final String? addition;
-  final bool? isSubmit;
+  final String? frontImgUrl;
+  final String? sideImgUrl;
+  final String? fileUrl;
+  final bool? isCompleted;
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
-  UserModel({
+  FootModel({
+    this.footId,
     this.uid,
     this.name,
     this.contact,
@@ -22,13 +29,17 @@ class UserModel {
     this.description,
     this.body,
     this.addition,
-    this.isSubmit,
+    this.frontImgUrl,
+    this.sideImgUrl,
+    this.fileUrl,
+    this.isCompleted,
     this.createdAt,
     this.updatedAt,
   });
 
-  factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(
+  factory FootModel.fromJson(Map<String, dynamic> json) {
+    return FootModel(
+      footId: json['footId'] == null ? null : json['footId'] as String,
       uid: json['uid'] == null ? null : json['uid'] as String,
       name: json['name'] == null ? null : json['name'] as String,
       contact: json['contact'] == null ? null : json['contact'] as String,
@@ -39,14 +50,25 @@ class UserModel {
           json['description'] == null ? null : json['description'] as String,
       body: json['body'] == null ? null : json['body'] as int,
       addition: json['addition'] == null ? null : json['addition'] as String,
-      isSubmit: json['isSubmit'] == null ? null : json['isSubmit'] as bool,
-      createdAt: json['createdAt'] == null ? null : json["createdAt"].toDate(),
-      updatedAt: json['updatedAt'] == null ? null : json["updatedAt"].toDate(),
+      frontImgUrl:
+          json['frontImgUrl'] == null ? null : json['frontImgUrl'] as String,
+      sideImgUrl:
+          json['sideImgUrl'] == null ? null : json['sideImgUrl'] as String,
+      fileUrl: json['fileUrl'] == null ? null : json['fileUrl'] as String,
+      isCompleted:
+          json['isCompleted'] == null ? null : json['isCompleted'] as bool,
+      createdAt: json['createdAt'] is Timestamp
+          ? (json['createdAt'] as Timestamp).toDate()
+          : null,
+      updatedAt: json['updatedAt'] is Timestamp
+          ? (json['updatedAt'] as Timestamp).toDate()
+          : null,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
+      'footId': footId,
       'uid': uid,
       'name': name,
       'contact': contact,
@@ -56,13 +78,17 @@ class UserModel {
       'description': description,
       'body': body,
       'addition': addition,
-      'isSubmit': isSubmit,
+      'frontImgUrl': frontImgUrl,
+      'sideImgUrl': sideImgUrl,
+      'fileUrl': fileUrl,
+      'isCompleted': isCompleted,
       'createdAt': createdAt,
       'updatedAt': updatedAt,
     };
   }
 
-  UserModel copyWith({
+  FootModel copyWith({
+    String? footId,
     String? uid,
     String? name,
     String? contact,
@@ -72,11 +98,15 @@ class UserModel {
     String? description,
     int? body,
     String? addition,
-    bool? isSubmit,
+    String? frontImgUrl,
+    String? sideImgUrl,
+    String? fileUrl,
+    bool? isCompleted,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
-    return UserModel(
+    return FootModel(
+      footId: footId ?? this.footId,
       uid: uid ?? this.uid,
       name: name ?? this.name,
       contact: contact ?? this.contact,
@@ -86,7 +116,10 @@ class UserModel {
       description: description ?? this.description,
       body: body ?? this.body,
       addition: addition ?? this.addition,
-      isSubmit: isSubmit ?? this.isSubmit,
+      frontImgUrl: frontImgUrl ?? this.frontImgUrl,
+      sideImgUrl: sideImgUrl ?? this.sideImgUrl,
+      fileUrl: fileUrl ?? this.fileUrl,
+      isCompleted: isCompleted ?? this.isCompleted,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );

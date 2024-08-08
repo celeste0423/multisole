@@ -33,7 +33,7 @@ class HomePage extends GetView<HomePageController> {
             ),
             MainButton(
               buttonText: '> 발 정보 새로 입력',
-              onTap: controller.printButton,
+              onTap: controller.footAddButton,
             ),
             MainButton(
               buttonText: '> 기존 정보 불러오기',

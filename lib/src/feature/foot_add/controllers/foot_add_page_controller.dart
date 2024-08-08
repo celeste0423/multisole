@@ -1,18 +1,14 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:multisol/src/feature/auth/controllers/auth_controller.dart';
+import 'package:multisol/src/feature/foot_add/pages/foot_image_add_page.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../helpers/open_alert_dialog.dart';
-import '../../../models/user_model.dart';
-import 'auth_controller.dart';
+import '../../../models/foot_model.dart';
 
-class SignupPageController extends GetxController {
-  late KeyboardVisibilityController keyboardVisibilityController;
-
-  Rx<String> uid = ''.obs;
-  Rx<String> email = ''.obs;
-
-  Rx<bool> isSignupLoading = false.obs;
+class FootAddPageController extends GetxController {
+  Rx<bool> isLoading = false.obs;
 
   TextEditingController nameController = TextEditingController();
   TextEditingController contactController = TextEditingController();
@@ -23,47 +19,50 @@ class SignupPageController extends GetxController {
   Rx<int> bodyController = 0.obs;
   TextEditingController additionController = TextEditingController();
 
-  @override
-  void onInit() async {
-    super.onInit();
-    keyboardVisibilityController = KeyboardVisibilityController();
-  }
+  var uuid = Uuid();
 
-  void initializeUserData(String userId, String userEmail) {
-    uid.value = userId;
-    email.value = userEmail;
-    print("이메일 이거일걸${email.value}");
-    emailController.text = email.value;
+  @override
+  void onInit() {
+    nameController.text = AuthController.to.user.value.name ?? '';
+    contactController.text = AuthController.to.user.value.contact ?? '';
+    emailController.text = AuthController.to.user.value.email ?? '';
+    heightController.text = AuthController.to.user.value.height.toString();
+    weightController.text = AuthController.to.user.value.weight.toString();
+    descriptionController.text = AuthController.to.user.value.description ?? '';
+    bodyController(AuthController.to.user.value.body);
+    additionController.text = AuthController.to.user.value.addition ?? '';
+    super.onInit();
   }
 
   void bodyShapeButton(int type) {
     bodyController(type);
   }
 
-  Future<void> signUpButton() async {
+  Future<void> sendButton() async {
     FocusScope.of(Get.context!).unfocus();
-    isSignupLoading(true);
+    isLoading(true);
     if (nameController.text == '') {
-      isSignupLoading(false);
+      isLoading(false);
       openAlertDialog(title: '이름을 입력해주세요');
     } else if (contactController.text == '') {
-      isSignupLoading(false);
+      isLoading(false);
       openAlertDialog(title: '연락처를 입력해주세요');
     } else if (emailController.text == '') {
-      isSignupLoading(false);
+      isLoading(false);
       openAlertDialog(title: '이메일을 입력해주세요');
     } else if (heightController.text == '') {
-      isSignupLoading(false);
+      isLoading(false);
       openAlertDialog(title: '신장을 입력해주세요');
     } else if (weightController.text == '') {
-      isSignupLoading(false);
+      isLoading(false);
       openAlertDialog(title: '몸무게를 입력해주세요');
     } else if (bodyController.value == 0) {
-      isSignupLoading(false);
+      isLoading(false);
       openAlertDialog(title: '체형을 선택해주세요');
     } else {
-      UserModel userData = UserModel(
-        uid: uid.value,
+      FootModel footModel = FootModel(
+        footId: uuid.v4(),
+        uid: AuthController.to.user.value.uid,
         name: nameController.text,
         contact: contactController.text,
         email: emailController.text,
@@ -72,13 +71,14 @@ class SignupPageController extends GetxController {
         description: descriptionController.text,
         body: bodyController.value,
         addition: additionController.text,
-        isSubmit: false,
+        isCompleted: false,
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
       );
-      // 회원가입 처리
-      await AuthController.to.signUp(userData);
-      isSignupLoading(false);
+
+      Get.to(() => FootImageAddPage(), arguments: footModel.toJson());
+
+      isLoading(false);
     }
   }
 }

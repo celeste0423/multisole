@@ -8,7 +8,7 @@ ThemeData baseTheme(BuildContext context) {
     fontFamily: 'nanum',
     brightness: Brightness.light,
     //배경 색
-    scaffoldBackgroundColor: CustomColors.whiteBackground,
+    scaffoldBackgroundColor: CustomColors.mainBlack,
     //appbar
     appBarTheme: AppBarTheme(
       backgroundColor: Colors.white,
@@ -35,7 +35,7 @@ ThemeData baseTheme(BuildContext context) {
           displayColor: CustomColors.mainBlack,
         ),
     popupMenuTheme: const PopupMenuThemeData(
-      surfaceTintColor: CustomColors.whiteBackground, // 원하는 배경 색으로 변경
+      surfaceTintColor: CustomColors.mainBlack, // 원하는 배경 색으로 변경
     ),
     //dialog
     dialogTheme: const DialogTheme(
