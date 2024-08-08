@@ -6,7 +6,7 @@ class UserModel {
   final int? height;
   final int? weight;
   final String? description;
-  final String? body;
+  final int? body;
   final String? addition;
   final bool? isSubmit;
   final DateTime? createdAt;
@@ -37,9 +37,9 @@ class UserModel {
       weight: json['weight'] == null ? null : json['weight'] as int,
       description:
           json['description'] == null ? null : json['description'] as String,
-      body: json['body'] == null ? null : json['body'] as String,
+      body: json['body'] == null ? null : json['body'] as int,
       addition: json['addition'] == null ? null : json['addition'] as String,
-      isSubmit: json['isSubmit'] == null ? null : json['isTimer'] as bool,
+      isSubmit: json['isSubmit'] == null ? null : json['isSubmit'] as bool,
       createdAt: json['createdAt'] == null ? null : json["createdAt"].toDate(),
       updatedAt: json['updatedAt'] == null ? null : json["updatedAt"].toDate(),
     );
@@ -68,7 +68,7 @@ class UserModel {
     int? height,
     int? weight,
     String? description,
-    String? body,
+    int? body,
     String? addition,
     bool? isSubmit,
     DateTime? createdAt,

@@ -1,13 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-import '../../../constants/service_urls.dart';
-import '../../../helpers/open_alert_dialog.dart';
 import '../../../utils/custom_color.dart';
 import '../../../widgets/full_size_loading_indicator.dart';
 import '../../../widgets/main_button.dart';
@@ -48,7 +44,6 @@ class SignupPage extends GetView<SignupPageController> {
               hintText: 'email 주소',
               textInputAction: TextInputAction.next,
               onSubmitted: (_) => FocusScope.of(Get.context!).unfocus(),
-              autoFocus: controller.isProfileEditing == null ? true : false,
             ),
             _thirdRow(),
             _bodySelector(),
@@ -58,14 +53,11 @@ class SignupPage extends GetView<SignupPageController> {
               hintText: '추가 요청사항',
               textInputAction: TextInputAction.next,
               onSubmitted: (_) => FocusScope.of(Get.context!).unfocus(),
-              autoFocus: controller.isProfileEditing == null ? true : false,
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                controller.isProfileEditing == null
-                    ? _termsAgreement()
-                    : const SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 20),
                   child: MainButton(
@@ -100,7 +92,7 @@ class SignupPage extends GetView<SignupPageController> {
             maxLength: 8,
             textInputAction: TextInputAction.next,
             onSubmitted: (_) => FocusScope.of(Get.context!).unfocus(),
-            autoFocus: controller.isProfileEditing == null ? true : false,
+            autoFocus: true,
           ),
         ),
         SizedBox(width: 15),
@@ -110,10 +102,9 @@ class SignupPage extends GetView<SignupPageController> {
             textEditingController: controller.contactController,
             backgroundColor: CustomColors.lightGreyBackground,
             hintText: '연락처',
-            maxLength: 13,
+            maxLength: 11,
             textInputAction: TextInputAction.next,
             onSubmitted: (_) => FocusScope.of(Get.context!).unfocus(),
-            autoFocus: controller.isProfileEditing == null ? true : false,
           ),
         ),
       ],
@@ -126,39 +117,38 @@ class SignupPage extends GetView<SignupPageController> {
         Expanded(
           flex: 1,
           child: TextFieldBox(
-            textEditingController: controller.nameController,
+            textEditingController: controller.heightController,
+            keyboardType: TextInputType.number,
             backgroundColor: CustomColors.lightGreyBackground,
             hintText: '신장(cm)',
             maxLength: 3,
             textInputAction: TextInputAction.next,
             onSubmitted: (_) => FocusScope.of(Get.context!).unfocus(),
-            autoFocus: controller.isProfileEditing == null ? true : false,
           ),
         ),
         SizedBox(width: 15),
         Expanded(
           flex: 1,
           child: TextFieldBox(
-            textEditingController: controller.contactController,
+            textEditingController: controller.weightController,
+            keyboardType: TextInputType.number,
             backgroundColor: CustomColors.lightGreyBackground,
             hintText: '몸무게(kg)',
             maxLength: 3,
             textInputAction: TextInputAction.next,
             onSubmitted: (_) => FocusScope.of(Get.context!).unfocus(),
-            autoFocus: controller.isProfileEditing == null ? true : false,
           ),
         ),
         SizedBox(width: 15),
         Expanded(
           flex: 2,
           child: TextFieldBox(
-            textEditingController: controller.contactController,
+            textEditingController: controller.descriptionController,
             backgroundColor: CustomColors.lightGreyBackground,
             hintText: '특이사항',
             maxLength: 13,
             textInputAction: TextInputAction.next,
             onSubmitted: (_) => FocusScope.of(Get.context!).unfocus(),
-            autoFocus: controller.isProfileEditing == null ? true : false,
           ),
         ),
       ],
@@ -169,7 +159,7 @@ class SignupPage extends GetView<SignupPageController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        const Text(
           '체형',
           style: TextStyle(
             color: CustomColors.whiteText,
@@ -190,12 +180,12 @@ class SignupPage extends GetView<SignupPageController> {
   }
 
   Widget _bodyShapeButton(String imagePath, int type) {
-    return CupertinoButton(
-      padding: EdgeInsets.zero,
-      onPressed: () {
-        controller.bodyShapeButton(type);
-      },
-      child: Expanded(
+    return Expanded(
+      child: CupertinoButton(
+        padding: EdgeInsets.zero,
+        onPressed: () {
+          controller.bodyShapeButton(type);
+        },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -223,97 +213,29 @@ class SignupPage extends GetView<SignupPageController> {
     );
   }
 
-  Widget _termsAgreement() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              RichText(
-                text: TextSpan(
-                  style: const TextStyle(
-                    color: CustomColors.greyText,
-                    fontSize: 15,
-                  ),
-                  children: [
-                    TextSpan(
-                      text: '이용약관 ',
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blue,
-                          fontSize: 15),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () async {
-                          Uri uri =
-                              Uri.parse(ServiceUrls.serviceTermsNotionUrl);
-                          if (await canLaunchUrl(uri)) {
-                            await launchUrl(uri);
-                          } else {
-                            openAlertDialog(title: '오류 발생');
-                          }
-                        },
-                    ),
-                    const TextSpan(text: '및 '),
-                    TextSpan(
-                      text: '개인정보처리방침',
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blue,
-                          fontSize: 15),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () async {
-                          Uri uri = Uri.parse(
-                              ServiceUrls.personalInformationPolicyNotionUrl);
-                          if (await canLaunchUrl(uri)) {
-                            await launchUrl(uri);
-                          } else {
-                            openAlertDialog(title: '오류 발생');
-                          }
-                        },
-                    ),
-                    const TextSpan(text: ' 동의'),
-                  ],
-                ),
-              ),
-              Obx(
-                () => Checkbox(
-                  value: controller.isTermAgreed.value,
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  onChanged: (bool? newValue) {
-                    controller.isTermAgreed(newValue);
-                  },
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
     Get.put(SignupPageController());
-    controller.uid(uid);
-    controller.email(email);
+    controller.initializeUserData(uid, email);
     return Stack(
       children: [
         KeyboardDismissOnTap(
           child: Scaffold(
             resizeToAvoidBottomInset: true,
             backgroundColor: CustomColors.mainBlack,
-            body: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: MediaQuery.of(Get.context!).padding.top),
-                _logoBox(),
-                const SizedBox(height: 30),
-                _inputTab(),
-              ],
+            body: SingleChildScrollView(
+              child: SizedBox(
+                height: Get.height,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: MediaQuery.of(Get.context!).padding.top),
+                    _logoBox(),
+                    _inputTab(),
+                  ],
+                ),
+              ),
             ),
           ),
         ),

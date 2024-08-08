@@ -38,7 +38,7 @@ class AuthController extends GetxController {
   Future<void> signUp(UserModel userData) async {
     await UserRepository.signup(userData);
     await loginUser(userData.uid!);
-    // print('uid야 ${user.value.uid}');
+    print('uid야 ${user.value.uid}');
   }
 
   @override

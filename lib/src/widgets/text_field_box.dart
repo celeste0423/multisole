@@ -12,7 +12,7 @@ class TextFieldBox extends StatelessWidget {
   Color? textColor;
   Color? hintColor;
   Function()? suffixOnPressed;
-  TextInputType? textInputType;
+  TextInputType? keyboardType;
   Function(String)? onSubmitted;
   TextInputAction? textInputAction;
   bool? autoFocus;
@@ -28,7 +28,7 @@ class TextFieldBox extends StatelessWidget {
     this.textColor,
     this.hintColor,
     this.suffixOnPressed,
-    this.textInputType,
+    this.keyboardType,
     this.onSubmitted,
     this.textInputAction,
     this.autoFocus,
@@ -57,7 +57,7 @@ class TextFieldBox extends StatelessWidget {
           height: height ?? 50,
           child: TextField(
             maxLength: maxLength ?? 30,
-            keyboardType: textInputType,
+            keyboardType: keyboardType,
             controller: textEditingController,
             cursorColor: Colors.black.withOpacity(0.5),
             style: TextStyle(

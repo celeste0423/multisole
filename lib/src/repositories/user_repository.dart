@@ -87,7 +87,7 @@ class UserRepository {
       return null;
     } else {
       //데이터 있음
-      print(data.docs.first.data());
+      // print(data.docs.first.data());
       return UserModel.fromJson(data.docs.first.data());
     }
   }

@@ -6,7 +6,6 @@ import '../utils/custom_color.dart';
 ThemeData baseTheme(BuildContext context) {
   final ThemeData base = ThemeData(
     fontFamily: 'nanum',
-    primarySwatch: CustomColors.mainBlueMaterial,
     brightness: Brightness.light,
     //배경 색
     scaffoldBackgroundColor: CustomColors.whiteBackground,

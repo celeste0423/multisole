@@ -35,7 +35,7 @@ class WelcomePage extends GetView<WelcomePageController> {
           const SizedBox(height: 10),
           _customLoginButton(),
           const SizedBox(height: 40),
-          _infoText(),
+          // _infoText(),
           const SizedBox(height: 10)
         ],
       ),
