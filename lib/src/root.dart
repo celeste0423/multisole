@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:multisol/src/feature/auth/controllers/auth_controller.dart';
+import 'package:multisol/src/feature/foot_add/pages/wait_page.dart';
 import 'package:multisol/src/feature/home/pages/home_page.dart';
 import 'package:multisol/src/models/user_model.dart';
 import 'package:multisol/src/widgets/full_size_loading_indicator.dart';
@@ -36,7 +37,7 @@ class Root extends GetView<AuthController> {
                           return const HomePage();
                         } else {
                           // 이미 주문한 상황일경우
-                          return const HomePage();
+                          return const WaitPage();
                         }
                       } else {
                         return SignupPage(
