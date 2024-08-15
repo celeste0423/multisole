@@ -14,7 +14,13 @@ class FootModel {
   final String? frontImgUrl;
   final String? sideImgUrl;
   final String? fileUrl;
-  final bool? isCompleted;
+  final int? isCompleted; //0: 생성, 1: file입력완, 2: 주소 입력완
+  final String? deliverName;
+  final String? deliverContact;
+  final int? postCode;
+  final String? address;
+  final String? additionAddress;
+  final String? request;
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
@@ -33,6 +39,12 @@ class FootModel {
     this.sideImgUrl,
     this.fileUrl,
     this.isCompleted,
+    this.deliverName,
+    this.deliverContact,
+    this.postCode,
+    this.address,
+    this.additionAddress,
+    this.request,
     this.createdAt,
     this.updatedAt,
   });
@@ -56,7 +68,18 @@ class FootModel {
           json['sideImgUrl'] == null ? null : json['sideImgUrl'] as String,
       fileUrl: json['fileUrl'] == null ? null : json['fileUrl'] as String,
       isCompleted:
-          json['isCompleted'] == null ? null : json['isCompleted'] as bool,
+          json['isCompleted'] == null ? null : json['isCompleted'] as int,
+      deliverName:
+          json['deliverName'] == null ? null : json['deliverName'] as String,
+      deliverContact: json['deliverContact'] == null
+          ? null
+          : json['deliverContact'] as String,
+      postCode: json['postCode'] == null ? null : json['postCode'] as int,
+      address: json['address'] == null ? null : json['address'] as String,
+      additionAddress: json['additionAddress'] == null
+          ? null
+          : json['additionAddress'] as String,
+      request: json['request'] == null ? null : json['request'] as String,
       createdAt: json['createdAt'] is Timestamp
           ? (json['createdAt'] as Timestamp).toDate()
           : null,
@@ -82,6 +105,12 @@ class FootModel {
       'sideImgUrl': sideImgUrl,
       'fileUrl': fileUrl,
       'isCompleted': isCompleted,
+      'deliverName': deliverName,
+      'deliverContact': deliverContact,
+      'postCode': postCode,
+      'address': address,
+      'additionAddress': additionAddress,
+      'request': request,
       'createdAt': createdAt,
       'updatedAt': updatedAt,
     };
@@ -101,7 +130,13 @@ class FootModel {
     String? frontImgUrl,
     String? sideImgUrl,
     String? fileUrl,
-    bool? isCompleted,
+    int? isCompleted,
+    String? deliverName,
+    String? deliverContact,
+    int? postCode,
+    String? address,
+    String? additionAddress,
+    String? request,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
@@ -120,6 +155,12 @@ class FootModel {
       sideImgUrl: sideImgUrl ?? this.sideImgUrl,
       fileUrl: fileUrl ?? this.fileUrl,
       isCompleted: isCompleted ?? this.isCompleted,
+      deliverName: deliverName ?? this.deliverName,
+      deliverContact: deliverContact ?? this.deliverContact,
+      postCode: postCode ?? this.postCode,
+      address: address ?? this.address,
+      additionAddress: additionAddress ?? this.additionAddress,
+      request: request ?? this.request,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );

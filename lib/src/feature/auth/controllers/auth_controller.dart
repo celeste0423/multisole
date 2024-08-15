@@ -41,6 +41,10 @@ class AuthController extends GetxController {
     print('uid야 ${user.value.uid}');
   }
 
+  Future<void> signOut() async {
+    await UserRepository.signOut();
+  }
+
   @override
   void onClose() {
     // TODO: implement onClose

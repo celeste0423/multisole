@@ -71,7 +71,7 @@ class FootAddPageController extends GetxController {
         description: descriptionController.text,
         body: bodyController.value,
         addition: additionController.text,
-        isCompleted: false,
+        isCompleted: 0,
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
       );

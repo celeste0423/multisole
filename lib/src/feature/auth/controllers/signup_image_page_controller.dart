@@ -2,14 +2,14 @@ import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:multisol/src/feature/auth/controllers/auth_controller.dart';
-import 'package:multisol/src/feature/home/pages/home_page.dart';
-import 'package:multisol/src/helpers/open_alert_dialog.dart';
-import 'package:multisol/src/models/foot_model.dart';
-import 'package:multisol/src/models/user_model.dart';
-import 'package:multisol/src/repositories/foot_repository.dart';
 
-class FootImageAddController extends GetxController {
+import '../../../helpers/open_alert_dialog.dart';
+import '../../../models/foot_model.dart';
+import '../../../models/user_model.dart';
+import '../../../repositories/foot_repository.dart';
+import 'auth_controller.dart';
+
+class SignupImagePageController extends GetxController {
   final arguments = Get.arguments as Map<String, dynamic>;
   FootModel footModel = FootModel();
   Rx<bool> isLoading = false.obs;
@@ -31,7 +31,7 @@ class FootImageAddController extends GetxController {
       File file = File(image.path);
       String? url = await FootRepository().uploadImage(
         file,
-        AuthController.to.user.value.uid!,
+        footModel.uid!,
         footModel.footId!,
       );
       if (url != null) {
@@ -48,7 +48,7 @@ class FootImageAddController extends GetxController {
       File file = File(image.path);
       String? url = await FootRepository().uploadImage(
         file,
-        AuthController.to.user.value.uid!,
+        footModel.uid!,
         footModel.footId!,
       );
       if (url != null) {
@@ -71,8 +71,9 @@ class FootImageAddController extends GetxController {
         sideImgUrl: sideImgUrl.value,
       );
       await FootRepository().uploadFootModel(newFootModel);
-      //기존 유저 정보 수정
-      UserModel newUserData = AuthController.to.user.value.copyWith(
+      //유저 회원가입
+      UserModel userData = UserModel(
+        uid: footModel.uid,
         name: footModel.name,
         contact: footModel.contact,
         email: footModel.email,
@@ -81,10 +82,25 @@ class FootImageAddController extends GetxController {
         description: footModel.description,
         body: footModel.body,
         addition: footModel.addition,
+        createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
       );
-      AuthController.to.updateUserModel(newUserData);
-      Get.offAll(() => HomePage());
+      // 회원가입 처리
+      await AuthController.to.signUp(userData);
+      Get.back();
+      // UserModel newUserData = AuthController.to.user.value.copyWith(
+      //   name: footModel.name,
+      //   contact: footModel.contact,
+      //   email: footModel.email,
+      //   height: footModel.height,
+      //   weight: footModel.weight,
+      //   description: footModel.description,
+      //   body: footModel.body,
+      //   addition: footModel.addition,
+      //   updatedAt: DateTime.now(),
+      // );
+      // AuthController.to.updateUserModel(newUserData);
+      // Get.offAll(() => HomePage());
     }
     isLoading(false);
   }

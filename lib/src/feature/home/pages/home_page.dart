@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:multisol/src/utils/custom_color.dart';
@@ -35,12 +36,18 @@ class HomePage extends GetView<HomePageController> {
               buttonText: '> 발 정보 새로 입력',
               onTap: controller.footAddButton,
             ),
-            MainButton(
-              buttonText: '> 기존 정보 불러오기',
-              onTap: controller.loadInfoButton,
+            const SizedBox(height: 20),
+            CupertinoButton(
+              padding: EdgeInsets.zero,
+              onPressed: controller.signOutButton,
+              child: const Text(
+                '로그아웃',
+                style: TextStyle(
+                  color: CustomColors.greyText,
+                ),
+              ),
             ),
-            SizedBox(height: 20),
-            SizedBox(height: 20),
+            const SizedBox(height: 40),
           ],
         ),
       ),

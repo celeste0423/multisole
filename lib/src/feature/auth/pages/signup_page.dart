@@ -61,9 +61,9 @@ class SignupPage extends GetView<SignupPageController> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 20),
                   child: MainButton(
-                    buttonText: '회원 가입 >',
+                    buttonText: '내 발 분석하기 >',
                     onTap: () {
-                      controller.signUpButton();
+                      controller.sendButton();
                     },
                     textStyle: const TextStyle(
                       color: Colors.white,

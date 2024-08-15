@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:multisol/src/feature/auth/controllers/auth_controller.dart';
-import 'package:multisol/src/feature/foot_add/pages/wait_page.dart';
 import 'package:multisol/src/feature/home/pages/home_page.dart';
 import 'package:multisol/src/models/user_model.dart';
 import 'package:multisol/src/widgets/full_size_loading_indicator.dart';
@@ -33,11 +32,8 @@ class Root extends GetView<AuthController> {
                         //받은 컨트롤러의 유저 데이터가 이미 있을경우 앱으로, 아니면 회원가입창으로
                         if (user.data!.email == AdminEmail.adminEmail) {
                           return const AdminPage();
-                        } else if (!controller.user.value.isSubmit!) {
-                          return const HomePage();
                         } else {
-                          // 이미 주문한 상황일경우
-                          return const WaitPage();
+                          return const HomePage();
                         }
                       } else {
                         return SignupPage(

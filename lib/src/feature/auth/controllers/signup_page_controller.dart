@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../helpers/open_alert_dialog.dart';
-import '../../../models/user_model.dart';
-import 'auth_controller.dart';
+import '../../../models/foot_model.dart';
+import '../pages/signup_image_page.dart';
 
 class SignupPageController extends GetxController {
   late KeyboardVisibilityController keyboardVisibilityController;
@@ -23,6 +24,8 @@ class SignupPageController extends GetxController {
   Rx<int> bodyController = 0.obs;
   TextEditingController additionController = TextEditingController();
 
+  var uuid = Uuid();
+
   @override
   void onInit() async {
     super.onInit();
@@ -40,7 +43,7 @@ class SignupPageController extends GetxController {
     bodyController(type);
   }
 
-  Future<void> signUpButton() async {
+  Future<void> sendButton() async {
     FocusScope.of(Get.context!).unfocus();
     isSignupLoading(true);
     if (nameController.text == '') {
@@ -62,7 +65,24 @@ class SignupPageController extends GetxController {
       isSignupLoading(false);
       openAlertDialog(title: '체형을 선택해주세요');
     } else {
-      UserModel userData = UserModel(
+      // UserModel userData = UserModel(
+      //   uid: uid.value,
+      //   name: nameController.text,
+      //   contact: contactController.text,
+      //   email: emailController.text,
+      //   height: int.parse(heightController.text),
+      //   weight: int.parse(weightController.text),
+      //   description: descriptionController.text,
+      //   body: bodyController.value,
+      //   addition: additionController.text,
+      //   isSubmit: false,
+      //   createdAt: DateTime.now(),
+      //   updatedAt: DateTime.now(),
+      // );
+      // // 회원가입 처리
+      // await AuthController.to.signUp(userData);
+      FootModel footModel = FootModel(
+        footId: uuid.v4(),
         uid: uid.value,
         name: nameController.text,
         contact: contactController.text,
@@ -72,12 +92,12 @@ class SignupPageController extends GetxController {
         description: descriptionController.text,
         body: bodyController.value,
         addition: additionController.text,
-        isSubmit: false,
+        isCompleted: 0,
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
       );
-      // 회원가입 처리
-      await AuthController.to.signUp(userData);
+
+      Get.to(() => SignupImagePage(), arguments: footModel.toJson());
       isSignupLoading(false);
     }
   }

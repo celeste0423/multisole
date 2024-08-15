@@ -8,7 +8,6 @@ class UserModel {
   final String? description;
   final int? body;
   final String? addition;
-  final bool? isSubmit;
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
@@ -22,7 +21,6 @@ class UserModel {
     this.description,
     this.body,
     this.addition,
-    this.isSubmit,
     this.createdAt,
     this.updatedAt,
   });
@@ -39,7 +37,6 @@ class UserModel {
           json['description'] == null ? null : json['description'] as String,
       body: json['body'] == null ? null : json['body'] as int,
       addition: json['addition'] == null ? null : json['addition'] as String,
-      isSubmit: json['isSubmit'] == null ? null : json['isSubmit'] as bool,
       createdAt: json['createdAt'] == null ? null : json["createdAt"].toDate(),
       updatedAt: json['updatedAt'] == null ? null : json["updatedAt"].toDate(),
     );
@@ -56,7 +53,6 @@ class UserModel {
       'description': description,
       'body': body,
       'addition': addition,
-      'isSubmit': isSubmit,
       'createdAt': createdAt,
       'updatedAt': updatedAt,
     };
@@ -72,7 +68,6 @@ class UserModel {
     String? description,
     int? body,
     String? addition,
-    bool? isSubmit,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
@@ -86,7 +81,6 @@ class UserModel {
       description: description ?? this.description,
       body: body ?? this.body,
       addition: addition ?? this.addition,
-      isSubmit: isSubmit ?? this.isSubmit,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
