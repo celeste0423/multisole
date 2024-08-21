@@ -100,6 +100,7 @@ class SignupPage extends GetView<SignupPageController> {
           flex: 3,
           child: TextFieldBox(
             textEditingController: controller.contactController,
+            keyboardType: TextInputType.number,
             backgroundColor: CustomColors.lightGreyBackground,
             hintText: '연락처',
             maxLength: 11,

@@ -69,6 +69,8 @@ class SignupImagePageController extends GetxController {
       FootModel newFootModel = footModel.copyWith(
         frontImgUrl: frontImgUrl.value,
         sideImgUrl: sideImgUrl.value,
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
       );
       await FootRepository().uploadFootModel(newFootModel);
       //유저 회원가입

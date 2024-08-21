@@ -80,12 +80,12 @@ class FootModel {
           ? null
           : json['additionAddress'] as String,
       request: json['request'] == null ? null : json['request'] as String,
-      createdAt: json['createdAt'] is Timestamp
-          ? (json['createdAt'] as Timestamp).toDate()
-          : null,
-      updatedAt: json['updatedAt'] is Timestamp
-          ? (json['updatedAt'] as Timestamp).toDate()
-          : null,
+      createdAt: json['createdAt'] == null
+          ? null
+          : (json['createdAt'] as Timestamp).toDate(),
+      updatedAt: json['updatedAt'] == null
+          ? null
+          : (json['updatedAt'] as Timestamp).toDate(),
     );
   }
 

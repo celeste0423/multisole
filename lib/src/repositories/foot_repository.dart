@@ -48,4 +48,54 @@ class FootRepository {
       openAlertDialog(title: '발모델 업데이트에 실패했습니다.', content: e.toString());
     }
   }
+
+  Stream<List<FootModel>> footModelListStream(String uid) {
+    print('스트림 시작');
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('foot')
+        .orderBy('createdAt', descending: true)
+        .snapshots()
+        .map((event) {
+      List<FootModel> footModels = [];
+      for (var footModelData in event.docs) {
+        print('발모델들');
+        FootModel footModel = FootModel.fromJson(footModelData.data());
+        footModels.add(footModel);
+      }
+      print('발모델 개수 : ${footModels.length}');
+      return footModels;
+    });
+  }
+
+  Stream<List<FootModel>> footModelListGroupStream() {
+    try {
+      print('스트림 시작');
+      return FirebaseFirestore.instance
+          .collectionGroup('foot')
+          .snapshots()
+          .map((event) {
+        List<FootModel> footModels = [];
+        for (var footModelData in event.docs) {
+          print('발모델들: ${footModelData.data()}');
+          FootModel footModel = FootModel.fromJson(footModelData.data());
+          footModels.add(footModel);
+          print('성고오오오오오오옹');
+        }
+        print('발모델 개수 : ${footModels.length}');
+        return footModels;
+      });
+    } catch (e) {
+      throw openAlertDialog(title: e.toString());
+    }
+  }
+
+  Future<void> deleteFootModel(String footId) async {
+    try {
+      FirebaseFirestore.instance.collection('foot').doc(footId).delete();
+    } catch (e) {
+      openAlertDialog(title: e.toString());
+    }
+  }
 }

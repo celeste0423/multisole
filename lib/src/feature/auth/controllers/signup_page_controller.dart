@@ -93,8 +93,6 @@ class SignupPageController extends GetxController {
         body: bodyController.value,
         addition: additionController.text,
         isCompleted: 0,
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now(),
       );
 
       Get.to(() => SignupImagePage(), arguments: footModel.toJson());
