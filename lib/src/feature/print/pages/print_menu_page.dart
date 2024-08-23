@@ -1,26 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:multisol/src/feature/print/controllers/print_menu_page_controller.dart';
+import 'package:multisol/src/models/foot_model.dart';
 
+import '../../../utils/custom_color.dart';
 import '../../../widgets/image_icon_button.dart';
 import '../../../widgets/main_button.dart';
 import '../../home/pages/home_page.dart';
 
 class PrintMenuPage extends GetView<PrintMenuPageController> {
-  const PrintMenuPage({super.key});
+  FootModel footModel;
 
-  Widget _appbar() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        ImageIconButton(
-          onTap: () {
-            Get.back();
-          },
-          assetPath: 'assets/icons/back.png',
-          height: 35,
-          isPng: true,
-        ),
+  PrintMenuPage({
+    required this.footModel,
+    super.key,
+  });
+
+  PreferredSizeWidget _appbar() {
+    return AppBar(
+      backgroundColor: CustomColors.mainBlack,
+      leading: ImageIconButton(
+        onTap: () {
+          Get.back();
+        },
+        assetPath: 'assets/icons/back.png',
+        height: 35,
+        isPng: true,
+      ),
+      actions: [
         ImageIconButton(
           onTap: () {
             Get.offAll(() => HomePage());
@@ -48,11 +55,9 @@ class PrintMenuPage extends GetView<PrintMenuPageController> {
             ),
             MainButton(
               buttonText: '> 주소지 입력하기',
-              onTap: controller.addressInputButton,
-            ),
-            MainButton(
-              buttonText: '> 출력하기',
-              onTap: controller.printButton,
+              onTap: () {
+                controller.addressInputButton(footModel);
+              },
             ),
             const SizedBox(height: 40),
           ],

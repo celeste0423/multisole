@@ -48,7 +48,7 @@ class FootAdminListPage extends GetView<FootAdminListPageController> {
         child: Text(
           footModel.createdAt.toString(),
           style: TextStyle(
-            color: Colors.red,
+            color: footModel.isCompleted == 0 ? Colors.red : Colors.grey,
             fontSize: 35,
           ),
         ),
