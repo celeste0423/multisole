@@ -69,6 +69,8 @@ class FootImageAddController extends GetxController {
       FootModel newFootModel = footModel.copyWith(
         frontImgUrl: frontImgUrl.value,
         sideImgUrl: sideImgUrl.value,
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
       );
       await FootRepository().uploadFootModel(newFootModel);
       //기존 유저 정보 수정
@@ -81,6 +83,7 @@ class FootImageAddController extends GetxController {
         description: footModel.description,
         body: footModel.body,
         addition: footModel.addition,
+        createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
       );
       AuthController.to.updateUserModel(newUserData);

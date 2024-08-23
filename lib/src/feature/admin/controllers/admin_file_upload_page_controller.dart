@@ -10,7 +10,10 @@ import 'package:multisol/src/repositories/foot_repository.dart';
 import 'package:uuid/uuid.dart';
 
 class AdminFileUploadPageController extends GetxController {
+  Rx<bool> isLoading = false.obs;
+
   void uploadFile(FootModel footModel) async {
+    isLoading(true);
     String? downloadLink = await uploadGLBFile(footModel);
     if (downloadLink != null) {
       FootModel updatedFootModel = footModel.copyWith(
@@ -20,7 +23,9 @@ class AdminFileUploadPageController extends GetxController {
       );
       FootRepository().update(updatedFootModel);
       Get.offAll(AdminPage());
+      isLoading(false);
     } else {
+      isLoading(false);
       openAlertDialog(title: '오류발생', content: '파일이 업로드되지 않았습니다.');
     }
   }

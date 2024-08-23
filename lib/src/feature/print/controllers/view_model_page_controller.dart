@@ -12,7 +12,8 @@ class ViewModelPageController extends GetxController {
   Future<File?> downloadAndCacheFile(String firebaseUrl) async {
     try {
       // 캐시 매니저를 사용하여 파일 다운로드
-      var file = await DefaultCacheManager().getSingleFile(firebaseUrl);
+      var fileResponse = await DefaultCacheManager().downloadFile(firebaseUrl);
+      var file = fileResponse.file;
       print("다운로드 파일 위치: ${file.path}");
       if (file.existsSync() && file.lengthSync() > 0) {
         print("File exists and is valid: ${file.path}");

@@ -5,6 +5,8 @@ import 'package:multisol/src/models/foot_model.dart';
 import 'package:multisol/src/widgets/main_button.dart';
 import 'package:multisol/src/widgets/title_text.dart';
 
+import '../../../widgets/full_size_loading_indicator.dart';
+
 class AdminFileUploadPage extends GetView<AdminFileUploadPageController> {
   FootModel footModel;
 
@@ -25,11 +27,23 @@ class AdminFileUploadPage extends GetView<AdminFileUploadPageController> {
   @override
   Widget build(BuildContext context) {
     Get.put(AdminFileUploadPageController());
-    return Scaffold(
-      appBar: AppBar(
-        title: TitleText(text: '파일 업로드'),
-      ),
-      body: _uploadButton(),
+    return Stack(
+      children: [
+        Scaffold(
+          appBar: AppBar(
+            title: TitleText(text: '파일 업로드'),
+          ),
+          body: _uploadButton(),
+        ),
+        Obx(
+          () => Visibility(
+            visible: controller.isLoading.value,
+            child: FullSizeLoadingIndicator(
+              backgroundColor: Colors.black.withOpacity(0.5),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
