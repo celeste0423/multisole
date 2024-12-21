@@ -14,13 +14,11 @@ import '../controllers/welcome_page_controller.dart';
 class WelcomePage extends GetView<WelcomePageController> {
   const WelcomePage({super.key});
 
-  Widget _title() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 30, bottom: 20),
-      child: Image.asset(
-        'assets/images/logo.png',
-        width: Get.width,
-      ),
+  Widget _background() {
+    return Image.asset(
+      'assets/images/shoe.png',
+      fit: BoxFit.cover,
+      height: Get.height,
     );
   }
 
@@ -28,9 +26,11 @@ class WelcomePage extends GetView<WelcomePageController> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          const SizedBox(height: 40),
+          const SizedBox(height: 100),
+          _title(),
+          Expanded(child: SizedBox()),
           const GoogleLoginButton(),
           const SizedBox(height: 10),
           _customLoginButton(),
@@ -39,6 +39,16 @@ class WelcomePage extends GetView<WelcomePageController> {
           const SizedBox(height: 10)
         ],
       ),
+    );
+  }
+
+  Widget _title() {
+    return Text(
+      '빠르게 배송되는\n발의 편안함',
+      style: TextStyle(
+          color: CustomColors.mainBlack,
+          fontWeight: FontWeight.w800,
+          fontSize: 45),
     );
   }
 
@@ -185,15 +195,11 @@ class WelcomePage extends GetView<WelcomePageController> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
     Get.put(WelcomePageController());
     return Scaffold(
-      backgroundColor: CustomColors.mainBlack,
       resizeToAvoidBottomInset: false,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: Stack(
         children: [
-          Expanded(
-            child: _title(),
-          ),
-          _bottomTab()
+          _background(),
+          _bottomTab(),
         ],
       ),
     );

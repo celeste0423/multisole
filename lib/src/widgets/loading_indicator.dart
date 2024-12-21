@@ -5,7 +5,7 @@ import '../utils/custom_color.dart';
 
 Widget loadingIndicator() {
   return LoadingAnimationWidget.fourRotatingDots(
-    color: CustomColors.mainOrange,
+    color: CustomColors.mainGrey,
     size: 50,
   );
 }

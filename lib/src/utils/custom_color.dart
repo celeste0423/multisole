@@ -4,8 +4,8 @@ class CustomColors {
   CustomColors._();
 
   //앱 대표 색
-  static const Color mainOrange = Color(0xFFE4743C);
-  static const Color mainBlack = Color(0xFF20212D);
+  static const Color mainGrey = Color(0xFFAAAAAA);
+  static const Color mainBlack = Color(0xFF242424);
 
   //텍스트 색
   static const Color blackText = Color(0xFF171717);

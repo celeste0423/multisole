@@ -8,7 +8,7 @@ ThemeData baseTheme(BuildContext context) {
     fontFamily: 'nanum',
     brightness: Brightness.light,
     //배경 색
-    scaffoldBackgroundColor: CustomColors.mainBlack,
+    scaffoldBackgroundColor: Colors.white,
     //appbar
     appBarTheme: AppBarTheme(
       backgroundColor: Colors.white,
@@ -16,7 +16,7 @@ ThemeData baseTheme(BuildContext context) {
       surfaceTintColor: Colors.transparent,
       centerTitle: true,
       toolbarHeight: 75,
-      systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
+      systemOverlayStyle: SystemUiOverlayStyle.light.copyWith(
         statusBarColor: Colors.transparent,
       ),
       // systemOverlayStyle: SystemUiOverlayStyle(
@@ -44,7 +44,7 @@ ThemeData baseTheme(BuildContext context) {
     ),
     //radio
     radioTheme: RadioThemeData(
-      fillColor: MaterialStateProperty.all<Color>(CustomColors.mainOrange),
+      fillColor: MaterialStateProperty.all<Color>(CustomColors.mainGrey),
     ),
     //checkbox
     checkboxTheme: CheckboxThemeData(
@@ -52,7 +52,7 @@ ThemeData baseTheme(BuildContext context) {
         (Set<MaterialState> states) {
           // 체크 안한 상태일 때
           if (states.contains(MaterialState.selected)) {
-            return CustomColors.mainOrange; // 체크박스 채우기 색상
+            return CustomColors.mainGrey; // 체크박스 채우기 색상
           } else {
             return Colors.white; // 테두리 색상
           }

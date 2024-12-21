@@ -223,7 +223,7 @@ class FootAddPage extends GetView<FootAddPageController> {
                 height: 7,
                 decoration: BoxDecoration(
                   color: type == controller.bodyController.value
-                      ? CustomColors.mainOrange
+                      ? CustomColors.mainGrey
                       : CustomColors.greyBackground,
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
                 ),

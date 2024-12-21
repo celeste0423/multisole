@@ -33,7 +33,7 @@ class MainButton extends StatelessWidget {
           height: height ?? 55,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: backgroundColor ?? CustomColors.mainOrange,
+            color: backgroundColor ?? CustomColors.mainGrey,
           ),
           child: icon == null
               ? Center(

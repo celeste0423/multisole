@@ -20,7 +20,7 @@ class FootAdminPage extends GetView<FootAdminPageController> {
       ) {
         if (!footModels.hasData) {
           return Center(
-            child: CircularProgressIndicator(color: CustomColors.mainOrange),
+            child: CircularProgressIndicator(color: CustomColors.mainGrey),
           );
         } else if (footModels.hasError) {
           openAlertDialog(title: '에러 발생');

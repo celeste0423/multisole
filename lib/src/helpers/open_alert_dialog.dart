@@ -65,7 +65,7 @@ openAlertDialog({
             btnText ?? "확인",
             style: TextStyle(
               fontSize: 13,
-              color: mainBtnColor ?? CustomColors.mainOrange,
+              color: mainBtnColor ?? CustomColors.mainGrey,
             ),
           ),
         ),
@@ -133,7 +133,7 @@ Future<bool> openBoolAlertDialog({
               btnText ?? "확인",
               style: const TextStyle(
                 fontSize: 13,
-                color: CustomColors.mainOrange,
+                color: CustomColors.mainGrey,
               ),
             ),
           ),

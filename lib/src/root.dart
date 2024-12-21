@@ -2,10 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:multisol/src/feature/auth/controllers/auth_controller.dart';
-import 'package:multisol/src/feature/home/pages/home_page.dart';
 import 'package:multisol/src/models/user_model.dart';
 import 'package:multisol/src/widgets/full_size_loading_indicator.dart';
 
+import 'app.dart';
 import 'constants/admin_email.dart';
 import 'feature/admin/pages/admin_page.dart';
 import 'feature/auth/pages/signup_page.dart';
@@ -33,7 +33,7 @@ class Root extends GetView<AuthController> {
                         if (user.data!.email == AdminEmail.adminEmail) {
                           return const AdminPage();
                         } else {
-                          return const HomePage();
+                          return const App();
                         }
                       } else {
                         return SignupPage(

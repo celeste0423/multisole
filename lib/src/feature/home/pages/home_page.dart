@@ -58,7 +58,6 @@ class HomePage extends GetView<HomePageController> {
   Widget build(BuildContext context) {
     Get.put(HomePageController());
     return Scaffold(
-      backgroundColor: CustomColors.mainBlack,
       body: Column(
         children: [
           SizedBox(height: 30),
