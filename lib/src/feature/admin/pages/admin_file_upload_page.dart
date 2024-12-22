@@ -64,6 +64,15 @@ class AdminFileUploadPage extends GetView<AdminFileUploadPageController> {
     );
   }
 
+  Widget _deliverButton() {
+    return MainButton(
+      buttonText: '배송 시작',
+      onTap: () {
+        controller.deliverStart(footModel);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Get.put(AdminFileUploadPageController());
@@ -77,6 +86,8 @@ class AdminFileUploadPage extends GetView<AdminFileUploadPageController> {
             children: [
               _uploadButton(),
               Expanded(child: _orderInfo()),
+              _deliverButton(),
+              SizedBox(height: 20),
             ],
           ),
         ),

@@ -77,4 +77,16 @@ class AdminFileUploadPageController extends GetxController {
       return null;
     }
   }
+
+  void deliverStart(FootModel footModel) async {
+    isLoading(true);
+    FootModel updatedFootModel = footModel.copyWith(
+      isCompleted: 3,
+      updatedAt: DateTime.now(),
+    );
+    FootRepository().update(updatedFootModel);
+    Get.offAll(AdminPage());
+    openAlertDialog(title: '전송 완료', content: '유저에게 배달 완료상태로 표시됩니다.');
+    isLoading(false);
+  }
 }

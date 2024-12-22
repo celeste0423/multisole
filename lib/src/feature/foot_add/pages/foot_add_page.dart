@@ -161,7 +161,7 @@ class FootAddPage extends GetView<FootAddPageController> {
         const Text(
           '체형',
           style: TextStyle(
-            color: CustomColors.whiteText,
+            color: CustomColors.blackText,
             fontSize: 10,
           ),
         ),

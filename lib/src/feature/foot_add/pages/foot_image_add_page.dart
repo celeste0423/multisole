@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:multisol/src/widgets/main_button.dart';
@@ -22,14 +23,37 @@ class FootImageAddPage extends GetView<FootImageAddController> {
 
   Widget _imageBox() {
     return Expanded(
-      child: Container(
-        color: CustomColors.greyBackground,
-        width: Get.width - 40,
-        padding: const EdgeInsets.all(10),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
+            const Row(
+              children: [
+                SizedBox(width: 10),
+                Text(
+                  '발 정면 사진',
+                  style: TextStyle(
+                      color: CustomColors.blackText,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
             _imageView(true),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
+            const Row(
+              children: [
+                SizedBox(width: 10),
+                Text(
+                  '발 측면 사진',
+                  style: TextStyle(
+                    color: CustomColors.blackText,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
             _imageView(false),
           ],
         ),
@@ -41,47 +65,74 @@ class FootImageAddPage extends GetView<FootImageAddController> {
     return Expanded(
       child: Obx(
         () => isFront
-            ? controller.frontImgUrl.value != ''
-                ? Image.network(
-                    controller.frontImgUrl.value!,
-                    fit: BoxFit.fill,
-                  )
-                : Container(
-                    color: CustomColors.mainBlack,
-                    width: Get.width - 20,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          'assets/images/front.png',
-                          height: 100,
+            ? CupertinoButton(
+                padding: EdgeInsets.zero,
+                onPressed: controller.uploadFrontImage,
+                child: controller.frontImgUrl.value != ''
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.network(
+                          controller.frontImgUrl.value!,
+                          fit: BoxFit.cover,
+                          width: Get.width - 20,
                         ),
-                        Text(
-                          '정면 사진 업로드 +',
-                          style: TextStyle(color: CustomColors.lightGreyText),
-                        )
-                      ],
-                    ),
-                  )
-            : controller.sideImgUrl.value != ''
-                ? Image.network(controller.sideImgUrl.value!, fit: BoxFit.fill)
-                : Container(
-                    color: CustomColors.mainBlack,
-                    width: Get.width - 20,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          'assets/images/side.png',
-                          height: 100,
+                      )
+                    : Container(
+                        width: Get.width - 20,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: CustomColors.mainBlack,
                         ),
-                        Text(
-                          '측면 사진 업로드 +',
-                          style: TextStyle(color: CustomColors.lightGreyText),
-                        )
-                      ],
-                    ),
-                  ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              'assets/images/front.png',
+                              height: 100,
+                            ),
+                            Text(
+                              '정면 사진 업로드 +',
+                              style:
+                                  TextStyle(color: CustomColors.lightGreyText),
+                            )
+                          ],
+                        ),
+                      ),
+              )
+            : CupertinoButton(
+                padding: EdgeInsets.zero,
+                onPressed: controller.uploadSideImage,
+                child: controller.sideImgUrl.value != ''
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.network(
+                          controller.sideImgUrl.value!,
+                          fit: BoxFit.cover,
+                          width: Get.width - 20,
+                        ),
+                      )
+                    : Container(
+                        width: Get.width - 20,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: CustomColors.mainBlack,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              'assets/images/side.png',
+                              height: 100,
+                            ),
+                            Text(
+                              '측면 사진 업로드 +',
+                              style:
+                                  TextStyle(color: CustomColors.lightGreyText),
+                            )
+                          ],
+                        ),
+                      ),
+              ),
       ),
     );
   }
@@ -91,23 +142,6 @@ class FootImageAddPage extends GetView<FootImageAddController> {
       padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 40),
       child: Column(
         children: [
-          Row(
-            children: [
-              Expanded(
-                child: MainButton(
-                  buttonText: '정면 사진 업로드 >',
-                  onTap: controller.uploadFrontImage,
-                ),
-              ),
-              SizedBox(width: 15),
-              Expanded(
-                child: MainButton(
-                  buttonText: '측면 사진 업로드 >',
-                  onTap: controller.uploadSideImage,
-                ),
-              ),
-            ],
-          ),
           SizedBox(height: 15),
           MainButton(
             buttonText: 'AI 분석 시작 >',

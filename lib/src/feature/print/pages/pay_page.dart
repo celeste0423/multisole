@@ -9,19 +9,18 @@ class PayPage extends GetView<PayPageController> {
   const PayPage({super.key});
 
   Widget _imageBox() {
-    return Expanded(
-      child: Image.asset('assets/images/foot_wait.png'),
-    );
+    return Image.asset('assets/images/shoe.png');
   }
 
   Widget _textBox() {
     return const Padding(
-      padding: EdgeInsets.only(left: 20, right: 20, bottom: 50, top: 30),
+      padding: EdgeInsets.only(left: 20, right: 20, bottom: 50, top: 100),
       child: Text(
-        '계좌번호로 계좌이체 부탁드립니다.',
+        '주문이 완료되었습니다!',
         textAlign: TextAlign.center,
         style: TextStyle(
-          color: CustomColors.whiteText,
+          color: CustomColors.blackText,
+          fontSize: 25,
         ),
       ),
     );
@@ -35,11 +34,20 @@ class PayPage extends GetView<PayPageController> {
   Widget build(BuildContext context) {
     Get.put(PayPageController());
     return Scaffold(
-      body: Column(
+      body: Stack(
         children: [
           _imageBox(),
-          _textBox(),
-          _button(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              children: [
+                _textBox(),
+                Expanded(child: SizedBox()),
+                _button(),
+                SizedBox(height: 20),
+              ],
+            ),
+          ),
         ],
       ),
     );

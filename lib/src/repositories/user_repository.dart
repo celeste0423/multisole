@@ -117,7 +117,6 @@ class UserRepository {
   static Future signOut() async {
     try {
       //이전 로그인 기록 지우기
-      //todo: 해보니까 이전 로그인 기록 지워지지 않은것 같은데 그럼 왜 await googleSignIn.signOut();가 필요한거지?일단 앱 돌아가는데 아무 문제 없으니 스킵.
       try {
         final google.GoogleSignIn googleSignIn = google.GoogleSignIn();
         await googleSignIn.signOut();
