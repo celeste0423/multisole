@@ -4,44 +4,18 @@ import 'package:multisol/src/widgets/main_button.dart';
 
 import '../../../utils/custom_color.dart';
 import '../../../widgets/full_size_loading_indicator.dart';
-import '../../../widgets/image_icon_button.dart';
-import '../../home/pages/home_page.dart';
+import '../../../widgets/title_text.dart';
 import '../controllers/foot_image_add_controller.dart';
 
 class FootImageAddPage extends GetView<FootImageAddController> {
   const FootImageAddPage({super.key});
 
-  Widget _appbar() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        ImageIconButton(
-          onTap: () {
-            Get.back();
-          },
-          assetPath: 'assets/icons/back.png',
-          height: 35,
-          isPng: true,
-        ),
-        ImageIconButton(
-          onTap: () {
-            Get.offAll(() => HomePage());
-          },
-          assetPath: 'assets/icons/home.png',
-          height: 35,
-          isPng: true,
-        ),
-      ],
-    );
-  }
-
-  Widget _logoBox() {
-    return Padding(
-      padding:
-          const EdgeInsets.only(left: 100, right: 100, bottom: 20, top: 20),
-      child: Image.asset(
-        'assets/images/logo.png',
-        width: Get.width,
+  PreferredSizeWidget _appBar() {
+    return AppBar(
+      centerTitle: false,
+      titleSpacing: 0,
+      title: TitleText(
+        text: '사진 등록',
       ),
     );
   }
@@ -151,21 +125,17 @@ class FootImageAddPage extends GetView<FootImageAddController> {
       children: [
         Scaffold(
           resizeToAvoidBottomInset: true,
-          backgroundColor: CustomColors.mainBlack,
-          body: SingleChildScrollView(
-            child: SizedBox(
-              height: Get.height,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  SizedBox(height: MediaQuery.of(Get.context!).padding.top),
-                  _appbar(),
-                  _logoBox(),
-                  _imageBox(),
-                  _buttonBox(),
-                ],
-              ),
+          appBar: _appBar(),
+          body: SizedBox(
+            height: Get.height,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                SizedBox(height: MediaQuery.of(Get.context!).padding.top),
+                _imageBox(),
+                _buttonBox(),
+              ],
             ),
           ),
         ),

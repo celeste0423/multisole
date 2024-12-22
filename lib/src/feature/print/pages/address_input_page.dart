@@ -6,10 +6,9 @@ import 'package:multisol/src/models/foot_model.dart';
 
 import '../../../utils/custom_color.dart';
 import '../../../widgets/full_size_loading_indicator.dart';
-import '../../../widgets/image_icon_button.dart';
 import '../../../widgets/main_button.dart';
 import '../../../widgets/text_field_box.dart';
-import '../../home/pages/home_page.dart';
+import '../../../widgets/title_text.dart';
 
 class AddressInputPage extends GetView<AddressInputPageController> {
   FootModel footModel;
@@ -18,36 +17,12 @@ class AddressInputPage extends GetView<AddressInputPageController> {
 
   PreferredSizeWidget _appbar() {
     return AppBar(
-      backgroundColor: CustomColors.mainBlack,
-      leading: ImageIconButton(
-        onTap: () {
-          Get.back();
-        },
-        assetPath: 'assets/icons/back.png',
-        height: 35,
-        isPng: true,
+      centerTitle: false,
+      titleSpacing: 0,
+      title: TitleText(
+        text: '배송지 입력',
       ),
-      actions: [
-        ImageIconButton(
-          onTap: () {
-            Get.offAll(() => HomePage());
-          },
-          assetPath: 'assets/icons/home.png',
-          height: 35,
-          isPng: true,
-        ),
-      ],
-    );
-  }
-
-  Widget _logoBox() {
-    return Padding(
-      padding:
-          const EdgeInsets.only(left: 100, right: 100, bottom: 50, top: 20),
-      child: Image.asset(
-        'assets/images/logo.png',
-        width: Get.width,
-      ),
+      backgroundColor: Colors.transparent,
     );
   }
 
@@ -59,6 +34,7 @@ class AddressInputPage extends GetView<AddressInputPageController> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             _firstRow(),
+            SizedBox(height: 20),
             TextFieldBox(
               textEditingController: controller.postCodeController,
               keyboardType: TextInputType.number,
@@ -68,6 +44,7 @@ class AddressInputPage extends GetView<AddressInputPageController> {
               textInputAction: TextInputAction.next,
               onSubmitted: (_) => FocusScope.of(Get.context!).unfocus(),
             ),
+            SizedBox(height: 20),
             TextFieldBox(
               textEditingController: controller.addressController,
               backgroundColor: CustomColors.lightGreyBackground,
@@ -75,6 +52,7 @@ class AddressInputPage extends GetView<AddressInputPageController> {
               textInputAction: TextInputAction.next,
               onSubmitted: (_) => FocusScope.of(Get.context!).unfocus(),
             ),
+            SizedBox(height: 20),
             TextFieldBox(
               textEditingController: controller.additionAddressController,
               backgroundColor: CustomColors.lightGreyBackground,
@@ -82,7 +60,7 @@ class AddressInputPage extends GetView<AddressInputPageController> {
               textInputAction: TextInputAction.next,
               onSubmitted: (_) => FocusScope.of(Get.context!).unfocus(),
             ),
-            SizedBox(height: 55),
+            SizedBox(height: 20),
             TextFieldBox(
               textEditingController: controller.requestController,
               backgroundColor: CustomColors.lightGreyBackground,
@@ -90,10 +68,11 @@ class AddressInputPage extends GetView<AddressInputPageController> {
               textInputAction: TextInputAction.next,
               onSubmitted: (_) => FocusScope.of(Get.context!).unfocus(),
             ),
+            SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.only(bottom: 20),
               child: MainButton(
-                buttonText: '>결제정보 선택하기',
+                buttonText: '결제정보 선택하기',
                 onTap: () {
                   controller.payButton(footModel);
                 },
@@ -149,20 +128,9 @@ class AddressInputPage extends GetView<AddressInputPageController> {
         KeyboardDismissOnTap(
           child: Scaffold(
             resizeToAvoidBottomInset: true,
-            backgroundColor: CustomColors.mainBlack,
             appBar: _appbar(),
             body: SingleChildScrollView(
-              child: SizedBox(
-                height: Get.height,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: MediaQuery.of(Get.context!).padding.top),
-                    _logoBox(),
-                    _inputTab(),
-                  ],
-                ),
-              ),
+              child: _inputTab(),
             ),
           ),
         ),

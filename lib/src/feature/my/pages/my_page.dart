@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../helpers/open_alert_dialog.dart';
 import '../../../utils/custom_color.dart';
 import '../../../widgets/title_text.dart';
 import '../../auth/controllers/auth_controller.dart';
@@ -14,6 +13,7 @@ class MyPage extends GetView<MyPageController> {
   PreferredSizeWidget _appBar() {
     return AppBar(
       centerTitle: false,
+      titleSpacing: 0,
       title: TitleText(
         text: 'My',
       ),
@@ -45,11 +45,7 @@ class MyPage extends GetView<MyPageController> {
               maxHeight: double.infinity,
               maxWidth: double.infinity,
               alignment: Alignment.topCenter,
-              child: Container(
-                width: 180,
-                height: 180,
-                padding: const EdgeInsets.only(right: 2, bottom: 10),
-              ),
+              child: Image.asset('assets/images/profile.png'),
             ),
           ),
         ),
@@ -61,83 +57,26 @@ class MyPage extends GetView<MyPageController> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        _button(
-          Image.asset(
-            'assets/icons/my_data_analyze.png',
-            width: 30,
-            height: 30,
-          ),
-          '기록 분석',
-          () {
-            openAlertDialog(title: '추후 구현 예정입니다.');
-          },
-        ),
-        _button(
-          const Icon(
-            Icons.analytics_outlined,
-            size: 30,
-            color: CustomColors.mainBlack,
-          ),
-          '결과 보기',
-          () {
-            openAlertDialog(title: '추후 구현 예정입니다.');
-          },
-        ),
-        Container(
-          color: CustomColors.lightGreyBackground,
-          margin: const EdgeInsets.symmetric(vertical: 10),
-          width: 100,
-          height: 1,
-        ),
-        _button(
-          Image.asset(
-            'assets/icons/my_settings.png',
-            width: 30,
-            height: 30,
-          ),
-          '설정',
-          () {
-            openAlertDialog(title: '추후 구현 예정입니다.');
-          },
-        ),
-        _button(
-          Image.asset(
-            'assets/icons/my_report.png',
-            width: 30,
-            height: 30,
-          ),
-          '문의하기',
-          () {
-            openAlertDialog(title: '추후 구현 예정입니다.');
-          },
-        ),
+        _button('나의 인솔 히스토리', () {}),
+        _button('멀티솔 이용방법', () {}),
+        _button('1:1 문의하기', () {}),
+        _button('서비스 이용 약관', () {}),
+        _button('개인정보처리방침', () {}),
+        _button('로그아웃', () {
+          controller.signOutButton();
+        }),
       ],
     );
   }
 
-  Widget _button(Widget icon, String text, VoidCallback onTap) {
+  Widget _button(String text, VoidCallback onTap) {
     return CupertinoButton(
       padding: const EdgeInsets.symmetric(vertical: 5),
       onPressed: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(20)),
-          color: CustomColors.whiteBackground,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              spreadRadius: 0,
-              blurRadius: 4,
-              offset: const Offset(0, 2),
-            )
-          ],
-        ),
         height: 60,
         child: Row(
           children: [
-            icon,
-            const SizedBox(width: 10),
             Text(
               text,
               style: const TextStyle(

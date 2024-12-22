@@ -2,7 +2,7 @@ import 'package:flutter_3d_controller/flutter_3d_controller.dart';
 import 'package:flutter_cache_manager/file.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
-import 'package:multisol/src/feature/print/pages/print_menu_page.dart';
+import 'package:multisol/src/feature/print/pages/address_input_page.dart';
 import 'package:multisol/src/helpers/open_alert_dialog.dart';
 import 'package:multisol/src/models/foot_model.dart';
 
@@ -30,6 +30,7 @@ class ViewModelPageController extends GetxController {
   }
 
   void pageButton(FootModel footModel) {
-    Get.to(() => PrintMenuPage(footModel: footModel));
+    // Get.to(() => PrintMenuPage(footModel: footModel));
+    Get.to(() => AddressInputPage(footModel: footModel));
   }
 }

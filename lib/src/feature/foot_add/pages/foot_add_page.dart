@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
-import 'package:multisol/src/feature/home/pages/home_page.dart';
-import 'package:multisol/src/widgets/image_icon_button.dart';
 
 import '../../../utils/custom_color.dart';
 import '../../../widgets/full_size_loading_indicator.dart';
 import '../../../widgets/main_button.dart';
 import '../../../widgets/text_field_box.dart';
+import '../../../widgets/title_text.dart';
 import '../controllers/foot_add_page_controller.dart';
 
 class FootAddPage extends GetView<FootAddPageController> {
@@ -17,87 +16,65 @@ class FootAddPage extends GetView<FootAddPageController> {
     Key? key,
   }) : super(key: key);
 
-  Widget _appbar() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        ImageIconButton(
-          onTap: () {
-            Get.back();
-          },
-          assetPath: 'assets/icons/back.png',
-          height: 35,
-          isPng: true,
-        ),
-        ImageIconButton(
-          onTap: () {
-            Get.offAll(() => HomePage());
-          },
-          assetPath: 'assets/icons/home.png',
-          height: 35,
-          isPng: true,
-        ),
-      ],
-    );
-  }
-
-  Widget _logoBox() {
-    return Padding(
-      padding:
-          const EdgeInsets.only(left: 100, right: 100, bottom: 50, top: 20),
-      child: Image.asset(
-        'assets/images/logo.png',
-        width: Get.width,
+  PreferredSizeWidget _appBar() {
+    return AppBar(
+      centerTitle: false,
+      titleSpacing: 0,
+      title: TitleText(
+        text: '인솔 등록하기',
       ),
     );
   }
 
   Widget _inputTab() {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _firstRow(),
-            TextFieldBox(
-              textEditingController: controller.emailController,
-              backgroundColor: CustomColors.lightGreyBackground,
-              hintText: 'email 주소',
-              textInputAction: TextInputAction.next,
-              onSubmitted: (_) => FocusScope.of(Get.context!).unfocus(),
-            ),
-            _thirdRow(),
-            _bodySelector(),
-            TextFieldBox(
-              textEditingController: controller.additionController,
-              backgroundColor: CustomColors.lightGreyBackground,
-              hintText: '추가 요청사항',
-              textInputAction: TextInputAction.next,
-              onSubmitted: (_) => FocusScope.of(Get.context!).unfocus(),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 20),
-                  child: MainButton(
-                    buttonText: '내 발 분석하기 >',
-                    onTap: () {
-                      controller.sendButton();
-                    },
-                    textStyle: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          _firstRow(),
+          SizedBox(height: 20),
+          TextFieldBox(
+            textEditingController: controller.emailController,
+            backgroundColor: CustomColors.lightGreyBackground,
+            hintText: 'email 주소',
+            textInputAction: TextInputAction.next,
+            onSubmitted: (_) => FocusScope.of(Get.context!).unfocus(),
+          ),
+          SizedBox(height: 20),
+          _thirdRow(),
+          SizedBox(height: 20),
+          _bodySelector(),
+          SizedBox(height: 20),
+          TextFieldBox(
+            textEditingController: controller.additionController,
+            backgroundColor: CustomColors.lightGreyBackground,
+            hintText: '추가 요청사항',
+            textInputAction: TextInputAction.next,
+            onSubmitted: (_) => FocusScope.of(Get.context!).unfocus(),
+          ),
+          SizedBox(height: 20),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: MainButton(
+                  buttonText: '내 발 분석하기 >',
+                  onTap: () {
+                    controller.sendButton();
+                  },
+                  textStyle: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
                   ),
                 ),
-              ],
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -223,8 +200,8 @@ class FootAddPage extends GetView<FootAddPageController> {
                 height: 7,
                 decoration: BoxDecoration(
                   color: type == controller.bodyController.value
-                      ? CustomColors.mainGrey
-                      : CustomColors.greyBackground,
+                      ? CustomColors.mainBlack
+                      : CustomColors.greyBackground.withOpacity(0.3),
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
                 ),
               ),
@@ -244,21 +221,8 @@ class FootAddPage extends GetView<FootAddPageController> {
         KeyboardDismissOnTap(
           child: Scaffold(
             resizeToAvoidBottomInset: true,
-            backgroundColor: CustomColors.mainBlack,
-            body: SingleChildScrollView(
-              child: SizedBox(
-                height: Get.height,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: MediaQuery.of(Get.context!).padding.top),
-                    _appbar(),
-                    _logoBox(),
-                    _inputTab(),
-                  ],
-                ),
-              ),
-            ),
+            appBar: _appBar(),
+            body: SingleChildScrollView(child: _inputTab()),
           ),
         ),
         Obx(

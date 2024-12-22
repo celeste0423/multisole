@@ -14,7 +14,7 @@ class FootModel {
   final String? frontImgUrl;
   final String? sideImgUrl;
   final String? fileUrl;
-  final int? isCompleted; //0: 생성, 1: file입력완, 2: 주소 입력완
+  final int? isCompleted; //0: 생성, 1: file입력완, 2: 주소 입력완(배송 준비중), 3: 배송 완료
   final String? deliverName;
   final String? deliverContact;
   final int? postCode;

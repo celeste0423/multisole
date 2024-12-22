@@ -91,7 +91,6 @@ class FootAdminPage extends GetView<FootAdminPageController> {
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          //todo: 이건 뭐지
                           image: NetworkImage(footModel.frontImgUrl!),
                           //   image: CachedNetworkImageProvider(
                           //       diaryModel.imgUrlList!.isEmpty ? Constants.baseImageUrl:diaryModel.imgUrlList![0]),

@@ -3,11 +3,12 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multisol/src/feature/auth/controllers/auth_controller.dart';
-import 'package:multisol/src/feature/home/pages/home_page.dart';
 import 'package:multisol/src/helpers/open_alert_dialog.dart';
 import 'package:multisol/src/models/foot_model.dart';
 import 'package:multisol/src/models/user_model.dart';
 import 'package:multisol/src/repositories/foot_repository.dart';
+
+import '../../../app.dart';
 
 class FootImageAddController extends GetxController {
   final arguments = Get.arguments as Map<String, dynamic>;
@@ -87,7 +88,7 @@ class FootImageAddController extends GetxController {
         updatedAt: DateTime.now(),
       );
       AuthController.to.updateUserModel(newUserData);
-      Get.offAll(() => HomePage());
+      Get.offAll(() => App());
     }
     isLoading(false);
   }

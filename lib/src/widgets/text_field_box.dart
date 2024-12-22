@@ -43,7 +43,7 @@ class TextFieldBox extends StatelessWidget {
           hintText ?? '',
           style: TextStyle(
             fontSize: 10,
-            color: CustomColors.whiteText,
+            color: CustomColors.blackText,
           ),
         ),
         Container(

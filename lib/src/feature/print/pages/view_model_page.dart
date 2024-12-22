@@ -5,8 +5,7 @@ import 'package:multisol/src/feature/print/controllers/view_model_page_controlle
 import 'package:multisol/src/models/foot_model.dart';
 import 'package:multisol/src/widgets/main_button.dart';
 
-import '../../../widgets/image_icon_button.dart';
-import '../../home/pages/home_page.dart';
+import '../../../widgets/title_text.dart';
 
 class ViewModelPage extends GetView<ViewModelPageController> {
   FootModel footModel;
@@ -15,25 +14,12 @@ class ViewModelPage extends GetView<ViewModelPageController> {
 
   PreferredSizeWidget _appbar() {
     return AppBar(
-      backgroundColor: Colors.transparent,
-      leading: ImageIconButton(
-        onTap: () {
-          Get.back();
-        },
-        assetPath: 'assets/icons/back.png',
-        height: 35,
-        isPng: true,
+      centerTitle: false,
+      titleSpacing: 0,
+      title: TitleText(
+        text: '모델 둘러보기',
       ),
-      actions: [
-        ImageIconButton(
-          onTap: () {
-            Get.offAll(() => HomePage());
-          },
-          assetPath: 'assets/icons/home.png',
-          height: 35,
-          isPng: true,
-        ),
-      ],
+      backgroundColor: Colors.transparent,
     );
   }
 

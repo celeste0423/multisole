@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:multisol/src/feature/foot_add/pages/foot_add_page.dart';
+import 'package:multisol/src/feature/foot_list/pages/foot_list_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'feature/home/pages/home_page.dart';
 import 'feature/my/pages/my_page.dart';
 import 'utils/custom_color.dart';
 
@@ -125,48 +125,23 @@ class _AppState extends State<App> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: TabBarView(
-        controller: _tabController,
-        physics: const NeverScrollableScrollPhysics(),
-        viewportFraction: 1,
-        children: const [
-          HomePage(),
-          FootAddPage(),
-          MyPage(),
+      body: Column(
+        children: [
+          Expanded(
+            child: TabBarView(
+              controller: _tabController,
+              physics: const NeverScrollableScrollPhysics(),
+              viewportFraction: 1,
+              children: const [
+                FootListPage(),
+                FootAddPage(),
+                MyPage(),
+              ],
+            ),
+          ),
+          _tabBar(),
         ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: _tabBar(),
     );
-  }
-}
-
-class CircleTabIndicator extends Decoration {
-  final BoxPainter _painter;
-
-  CircleTabIndicator({required Color color, required double radius})
-      : _painter = _CirclePainter(color, radius);
-
-  @override
-  BoxPainter createBoxPainter([VoidCallback? onChanged]) {
-    return _painter;
-  }
-}
-
-class _CirclePainter extends BoxPainter {
-  final Paint _paint;
-  final double radius;
-
-  _CirclePainter(Color color, this.radius)
-      : _paint = Paint()
-          ..color = color
-          ..isAntiAlias = true;
-
-  @override
-  void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
-    final rect = offset & configuration.size!;
-    final center = Offset(rect.center.dx, rect.bottom - radius - 15);
-
-    canvas.drawCircle(center, radius, _paint);
   }
 }

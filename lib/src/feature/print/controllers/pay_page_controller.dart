@@ -1,8 +1,9 @@
 import 'package:get/get.dart';
-import 'package:multisol/src/feature/home/pages/home_page.dart';
+
+import '../../../app.dart';
 
 class PayPageController extends GetxController {
   void homeButton() {
-    Get.offAll(HomePage());
+    Get.offAll(App());
   }
 }
